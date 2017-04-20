@@ -1,6 +1,7 @@
 package com.example.amaresh.newoffers;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -103,6 +104,9 @@ public class OffersList extends ListFragment implements OnItemClickListener {
                 String[] menuArray = getResources().getStringArray(R.array.SampleOffers);
                 Toast.makeText(getActivity(), "Clicked Item : " + movieList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
                 Log.i("new click listener", String.valueOf(movieList.get(position).getTitle()));
+                Intent intent = new Intent(getActivity().getApplicationContext(),OfferDetails.class);
+                intent.putExtra("Item_title",String.valueOf(movieList.get(position).getTitle()));
+                startActivity(intent);
             }
         }));
 

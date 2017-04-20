@@ -2,9 +2,9 @@
     <string name="app_name">OffersUpdate</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="tab1Heading">Offers</string>
-    <string name="tab2Heading">Information</string>
-    <string name="tab3Heading">More</string>
+    <string name="tab1Heading">OFFERS</string>
+    <string name="tab2Heading">LOOT</string>
+    <string name="tab3Heading">DEALS</string>
     <string name="SampleText">sample text</string>
 
     <string-array name="SampleOffers">
@@ -12,7 +12,8 @@
         <item>Snapdeal</item>
         <item>Freecharge</item>
     </string-array>
-    
-<!-- TODO: Remove or change this placeholder text -->
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_offer_details">OfferDetails</string>
 </resources>

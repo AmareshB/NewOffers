@@ -96,6 +96,16 @@ public class OffersList extends ListFragment implements OnItemClickListener {
         sendRequest();
         //Download Data Ends
 
+        //Click event for recycler view items
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity().getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String[] menuArray = getResources().getStringArray(R.array.SampleOffers);
+                Toast.makeText(getActivity(), "Clicked Item : " + movieList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Log.i("new click listener", String.valueOf(movieList.get(position).getTitle()));
+            }
+        }));
+
         return view;
     }
 

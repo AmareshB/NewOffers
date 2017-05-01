@@ -105,7 +105,8 @@ public class OffersList extends ListFragment implements OnItemClickListener {
                 Toast.makeText(getActivity(), "Clicked Item : " + movieList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
                 Log.i("new click listener", String.valueOf(movieList.get(position).getTitle()));
                 Intent intent = new Intent(getActivity().getApplicationContext(),OfferDetails.class);
-                intent.putExtra("Item_title",String.valueOf(movieList.get(position).getTitle()));
+                //intent.putExtra("Item_title",String.valueOf(movieList.get(position).getTitle()));
+                intent.putExtra("Movie_Object",movieList.get(position));
                 startActivity(intent);
             }
         }));

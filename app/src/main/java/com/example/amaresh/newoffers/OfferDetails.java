@@ -1,6 +1,7 @@
 package com.example.amaresh.newoffers;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,7 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class OfferDetails extends AppCompatActivity {
+public class OfferDetails extends AppCompatActivity implements selectedOfferDetails.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -93,6 +94,11 @@ public class OfferDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -142,7 +148,14 @@ public class OfferDetails extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+                case 0:
+                    return selectedOfferDetails.newInstance("a","b"); // need to create a custom view and update here.
+                 default:
+                     return PlaceholderFragment.newInstance(position + 1);
+            }
+
+
         }
 
         @Override

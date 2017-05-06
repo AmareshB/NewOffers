@@ -22,7 +22,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.amaresh.newoffers.models.AccountDetails;
+import com.example.amaresh.newoffers.models.Offer;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +47,8 @@ public class OffersList extends ListFragment implements OnItemClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public  static final String URL_JSON = "https://creator.zoho.com/api/json/offer-pickup/view/Untitled_Form_View?authtoken=fe7d268a333df01f180f0c4dd0c5aa92&scope=creatorapi&zc_ownername=629325995&raw=true";
+    public static final String TAG = tabbedActivity.class.getSimpleName();
+    //public  static final String URL_JSON = "https://creator.zoho.com/api/json/offer-pickup/view/Untitled_Form_View?authtoken=fe7d268a333df01f180f0c4dd0c5aa92&scope=creatorapi&zc_ownername=629325995&raw=true";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -220,12 +233,15 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
     private void sendRequest(){
 
-        StringRequest stringRequest = new StringRequest(URL_JSON,
+        String requestURL = constructsURLforOffers();
+
+        StringRequest stringRequest = new StringRequest(requestURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                        // showJSON(response);
-                        Log.i("DownloadData",response);
+                        Log.i("DownloadData req url ",response);
+                        getOfferListObject(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -240,7 +256,75 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
     }
 
+    private String constructsURLforOffers(){
+        InputStream is;
+        String localJSONString ="";
+        try {
+            is = getActivity().getBaseContext().getAssets().open("sampleaccountjson.json");
 
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            localJSONString = new String(buffer, "UTF-8");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(this.TAG,localJSONString);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        AccountDetails accountDetails = new AccountDetails();
+        try {
+            accountDetails =  objectMapper.readValue(localJSONString, AccountDetails.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("JsON read exception","accounts details json error");
+        }
+
+        if(accountDetails!=null)
+            return "https://creator.zoho.com/api/json/"
+                    + accountDetails.getApplicationLinkName()
+                    +"/view/"+accountDetails.getViewLinkName()
+                    +"?authtoken="+accountDetails.getAuthtoken()
+                    +"&scope=creatorapi"
+                    +"&zc_ownername="+accountDetails.getZc_ownername()
+                    +"&raw=true";
+        else
+            return "";
+
+    }
+
+    private void getOfferListObject(String response) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(response);
+            JSONArray offersArray = jsonObject.getJSONArray("Untitled_Form");
+            Log.d(this.TAG,"check check" +offersArray.toString());
+            ArrayList<Offer> offersList;
+
+            offersList =  objectMapper.readValue(offersArray.toString(), new TypeReference<ArrayList<Offer>>(){});
+
+            if(offersList.size()!=0){
+                //return offersList;
+                Log.i("Offers List : ", String.valueOf(offersList));
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 }

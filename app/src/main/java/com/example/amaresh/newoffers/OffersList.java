@@ -97,14 +97,18 @@ public class OffersList extends ListFragment implements OnItemClickListener {
         //MOvies RecyclerView
         recyclerView = (RecyclerView) view.findViewById(R.id.offersListView);
        // mAdapter = new MoviesAdapter(movieList);
+        offerListAdapter = new OfferListAdapter(offersArrayList,getActivity().getApplicationContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //recyclerView.setAdapter(mAdapter);
         //prepareMovieData();
 
-        offerListAdapter = new OfferListAdapter(offersArrayList,getActivity().getApplicationContext());
+
         recyclerView.setAdapter(offerListAdapter);
+        //Download Data starts
+        sendRequest();
+        //Download Data Ends
 
         //SwipeREfreshLayout
         view = swipeToRefresh(view);
@@ -112,9 +116,7 @@ public class OffersList extends ListFragment implements OnItemClickListener {
         //sectionlabel textview
         sectionLabelTextView = (TextView) view.findViewById(R.id.section_label);
 
-        //Download Data starts
-        sendRequest();
-        //Download Data Ends
+
 
         //Click event for recycler view items
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity().getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -133,7 +135,7 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
                 Intent intent = new Intent(getActivity().getApplicationContext(),OfferDetails.class);
                 intent.putExtra("Offer_title",String.valueOf(offersArrayList.get(position).getOffer_Title()));
-               // intent.putExtra("Offer_Object",offersArrayList.get(position));
+                intent.putExtra("Offer_Object",offersArrayList.get(position));
                 startActivity(intent);
 
 
@@ -190,7 +192,7 @@ public class OffersList extends ListFragment implements OnItemClickListener {
         // Update the adapter and notify data set changed
         //mAdapter.notifyDataSetChanged();
 
-        offerListAdapter.notifyDataSetChanged();
+        reloadOffersList(this.offersArrayList);
 
         // Stop refresh animation
         mswipeRefreshLayout.setRefreshing(false);
@@ -253,7 +255,7 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
     private void sendRequest(){
 
-        String requestURL = constructsURLforOffers();
+        String requestURL = constructsURLForOffers();
 
         StringRequest stringRequest = new StringRequest(requestURL,
                 new Response.Listener<String>() {
@@ -276,7 +278,7 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
     }
 
-    private String constructsURLforOffers(){
+    private String constructsURLForOffers(){
         InputStream is;
         String localJSONString ="";
         try {
@@ -317,7 +319,6 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
     private void getOfferListObject(String response) {
         ObjectMapper objectMapper = new ObjectMapper();
-
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(response);
@@ -331,7 +332,7 @@ public class OffersList extends ListFragment implements OnItemClickListener {
                 //return offersList;
                 Log.i("Offers List : ", String.valueOf(offersList));
                 this.offersArrayList = offersList;
-                offerListAdapter.notifyDataSetChanged();
+                reloadOffersList(this.offersArrayList);
             }
 
 
@@ -346,6 +347,12 @@ public class OffersList extends ListFragment implements OnItemClickListener {
             e.printStackTrace();
         }
 
+    }
+
+    public void reloadOffersList(final ArrayList<Offer> newOffers){
+        offerListAdapter.reloadOffers(newOffers);
+        offerListAdapter.notifyDataSetChanged();
+        recyclerView.invalidate();
     }
 
 

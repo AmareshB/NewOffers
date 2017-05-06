@@ -12,12 +12,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.amaresh.newoffers.models.Offer;
 
 public class OfferDetails extends AppCompatActivity implements selectedOfferDetails.OnFragmentInteractionListener{
 
@@ -69,8 +72,8 @@ public class OfferDetails extends AppCompatActivity implements selectedOfferDeta
         //Movie selectedMovie = fromOffersPage.getParcelableExtra("Movie_Object");
         //Log.i("Selected Offer  :", String.valueOf(selectedMovie.getTitle()));
 
-       // Offer selectedOffer = fromOffersPage.getParcelableExtra("Offer_Object");
-       // Log.i("Selected Offer  :", String.valueOf(selectedOffer.getOffer_Title()));
+        Offer selectedOffer = fromOffersPage.getParcelableExtra("Offer_Object");
+        Log.i("Selected Offer  :", String.valueOf(selectedOffer.getOffer_Description()));
 
     }
 

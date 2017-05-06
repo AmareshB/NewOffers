@@ -50,4 +50,9 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferItemHolder> {
     public int getItemCount() {
         return offers.size();
     }
+
+    public void reloadOffers(ArrayList<Offer> newOffers){
+        offers.clear();
+        offers.addAll(newOffers);
+    }
 }

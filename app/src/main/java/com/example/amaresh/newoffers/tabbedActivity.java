@@ -178,6 +178,8 @@ public ListView OfferListView;
                     //return TestFragment.newInstance("a","b");
                    //OffersList offersList = new OffersList();
                     return OffersList.newInstance("a","b");
+                case 2:
+                    return OffersList.newInstance("a","b"); // change here for the real offers list.
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }

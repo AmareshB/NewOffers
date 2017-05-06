@@ -60,6 +60,9 @@ public class OffersList extends ListFragment implements OnItemClickListener {
     private MoviesAdapter mAdapter;
     public TextView sectionLabelTextView;
 
+    private ArrayList<Offer> offersArrayList = new ArrayList<>();    //TODO : MAKE THIS ARRAY LIST if it works.
+    private OfferListAdapter offerListAdapter;
+
     //SwipeRefreshLayout
     private SwipeRefreshLayout mswipeRefreshLayout;
 
@@ -93,12 +96,15 @@ public class OffersList extends ListFragment implements OnItemClickListener {
         View view = inflater.inflate(R.layout.fragment_offerslist, container, false);
         //MOvies RecyclerView
         recyclerView = (RecyclerView) view.findViewById(R.id.offersListView);
-        mAdapter = new MoviesAdapter(movieList);
+       // mAdapter = new MoviesAdapter(movieList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-        prepareMovieData();
+        //recyclerView.setAdapter(mAdapter);
+        //prepareMovieData();
+
+        offerListAdapter = new OfferListAdapter(offersArrayList,getActivity().getApplicationContext());
+        recyclerView.setAdapter(offerListAdapter);
 
         //SwipeREfreshLayout
         view = swipeToRefresh(view);
@@ -115,12 +121,22 @@ public class OffersList extends ListFragment implements OnItemClickListener {
             @Override
             public void onItemClick(View view, int position) {
                 String[] menuArray = getResources().getStringArray(R.array.SampleOffers);
-                Toast.makeText(getActivity(), "Clicked Item : " + movieList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-                Log.i("new click listener", String.valueOf(movieList.get(position).getTitle()));
-                Intent intent = new Intent(getActivity().getApplicationContext(),OfferDetails.class);
+                //Toast.makeText(getActivity(), "Clicked Item : " + movieList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+               // Log.i("new click listener", String.valueOf(movieList.get(position).getTitle()));
+
+                Toast.makeText(getActivity(), "Clicked Item : " + offersArrayList.get(position).getOffer_Title(), Toast.LENGTH_SHORT).show();
+                Log.i("new offer click ", String.valueOf(offersArrayList.get(position).getOffer_Title()));
+               // Intent intent = new Intent(getActivity().getApplicationContext(),OfferDetails.class);
                 //intent.putExtra("Item_title",String.valueOf(movieList.get(position).getTitle()));
-                intent.putExtra("Movie_Object",movieList.get(position));
+               // intent.putExtra("Movie_Object",movieList.get(position));
+               // startActivity(intent);
+
+                Intent intent = new Intent(getActivity().getApplicationContext(),OfferDetails.class);
+                intent.putExtra("Offer_title",String.valueOf(offersArrayList.get(position).getOffer_Title()));
+               // intent.putExtra("Offer_Object",offersArrayList.get(position));
                 startActivity(intent);
+
+
             }
         }));
 
@@ -162,7 +178,9 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
     void refreshItems() {
         // Load items
-        mAdapter = new MoviesAdapter(movieList);
+       // mAdapter = new MoviesAdapter(movieList);
+
+        offerListAdapter = new OfferListAdapter(offersArrayList,getActivity().getApplicationContext());
 
         // Load complete
         onItemsLoadComplete();
@@ -170,7 +188,9 @@ public class OffersList extends ListFragment implements OnItemClickListener {
 
     void onItemsLoadComplete() {
         // Update the adapter and notify data set changed
-        mAdapter.notifyDataSetChanged();
+        //mAdapter.notifyDataSetChanged();
+
+        offerListAdapter.notifyDataSetChanged();
 
         // Stop refresh animation
         mswipeRefreshLayout.setRefreshing(false);
@@ -310,6 +330,8 @@ public class OffersList extends ListFragment implements OnItemClickListener {
             if(offersList.size()!=0){
                 //return offersList;
                 Log.i("Offers List : ", String.valueOf(offersList));
+                this.offersArrayList = offersList;
+                offerListAdapter.notifyDataSetChanged();
             }
 
 

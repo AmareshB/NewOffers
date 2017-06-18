@@ -71,15 +71,18 @@ public class selectedOfferDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_selected_offer_details, container, false);
+
         TextView description = (TextView) rootView.findViewById(R.id.description);
         TextView offerTime = (TextView) rootView.findViewById(R.id.offertime);
+
         Intent fromOffersPage = getActivity().getIntent();
         Offer selectedOffer = fromOffersPage.getParcelableExtra("Offer_Object");
         Log.i("Selected Offer  :", String.valueOf(selectedOffer.getOffer_Description()));
+
         description.setText(selectedOffer.getOffer_Description());
         String difference = dateDifference.dateDiff(selectedOffer.getOffer_Data_Time());
         offerTime.setText(difference);
-
+        getActivity().setTitle(selectedOffer.getOffer_Title());
         return rootView;
 
     }

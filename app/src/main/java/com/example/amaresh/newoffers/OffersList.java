@@ -192,8 +192,8 @@ public class OffersList extends ListFragment implements OnItemClickListener {
         // Update the adapter and notify data set changed
         //mAdapter.notifyDataSetChanged();
 
-        reloadOffersList(this.offersArrayList);
-
+       // reloadOffersList(this.offersArrayList);
+    sendRequest();
         // Stop refresh animation
         mswipeRefreshLayout.setRefreshing(false);
     }

@@ -23,7 +23,7 @@
             android:gravity="center"
             android:id="@+id/imageDescription"
             android:layout_weight="0.15"
-            android:text="Some text"/>
+            android:text="Lorem ipsum solatido i am your adnasdsd adasd asdw qw,dq wdqwqwhi how are you> adad asd i am fine i am doing good :)"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -37,6 +37,11 @@
 
     </LinearLayout>
 
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="#FF000000"
+          android:alpha="0.3"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,16 +51,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
+            android:layout_weight="0.35"
             android:gravity="center"
             android:id="@+id/description"
             android:text="Description"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:gravity="center"
-            android:text="Some Text"/>
+            android:layout_weight="0.15"
+
+            android:text="Lorem ipsum solatido i am your adnasdsd adasd asdw qw,dq wdqwqwhi how are you> adad asd i am fine i am doing good :)"/>
 
     </LinearLayout>
 

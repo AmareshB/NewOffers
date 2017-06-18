@@ -29,20 +29,16 @@ public class DateDifference {
             System.out.println(seconds);
             if(days > 0){
                 difference += days + " days";
-                System.out.println(days);
             } else if(hours > 0 ) {
                 difference += hours + " hours";
-                System.out.println(hours);
             } else if(minutes > 0){
                 difference += minutes + " minutes";
-                System.out.println(minutes);
             } else if(seconds > 0 ) {
                 difference += seconds + " sec";
-                System.out.println(seconds);
             }
             difference += " ago";
             System.out.println(difference);
-            Log.e("TEST Date diff" , date1.getTime() + " - " + date2.getTime() + " - " + diff);
+
         } catch (ParseException e) {
             Log.e("Date difference", "Exception", e);
         }

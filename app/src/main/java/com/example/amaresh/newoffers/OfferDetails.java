@@ -1,6 +1,5 @@
 package com.example.amaresh.newoffers;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,15 +11,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.amaresh.newoffers.models.Offer;
 
 public class OfferDetails extends AppCompatActivity implements selectedOfferDetails.OnFragmentInteractionListener{
 
@@ -66,15 +62,6 @@ public class OfferDetails extends AppCompatActivity implements selectedOfferDeta
                         .setAction("Action", null).show();
             }
         });
-        Intent fromOffersPage = getIntent();
-       // Bundle offerDetails = fromOffersPage.getExtras();
-        //Log.i("offer Details", String.valueOf(offerDetails.get("Item_title")));
-        //Movie selectedMovie = fromOffersPage.getParcelableExtra("Movie_Object");
-        //Log.i("Selected Offer  :", String.valueOf(selectedMovie.getTitle()));
-
-        Offer selectedOffer = fromOffersPage.getParcelableExtra("Offer_Object");
-        Log.i("Selected Offer  :", String.valueOf(selectedOffer.getOffer_Description()));
-
     }
 
 

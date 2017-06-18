@@ -262,7 +262,7 @@ public class OffersList extends ListFragment implements OnItemClickListener {
                     @Override
                     public void onResponse(String response) {
                        // showJSON(response);
-                        Log.i("DownloadData req url ",response);
+                        Log.i("DownloadData request ",response);
                         getOfferListObject(response);
                     }
                 },

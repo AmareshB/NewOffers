@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.example.amaresh.newoffers.models.Offer;
 
-import java.util.Date;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +27,7 @@ public class selectedOfferDetails extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    DateDifference dateDifference = new DateDifference();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,8 +77,8 @@ public class selectedOfferDetails extends Fragment {
         Offer selectedOffer = fromOffersPage.getParcelableExtra("Offer_Object");
         Log.i("Selected Offer  :", String.valueOf(selectedOffer.getOffer_Description()));
         description.setText(selectedOffer.getOffer_Description());
-        Date currentDate = new Date();
-        offerTime.setText(selectedOffer.getOffer_Data_Time());
+        String difference = dateDifference.dateDiff(selectedOffer.getOffer_Data_Time());
+        offerTime.setText(difference);
 
         return rootView;
 

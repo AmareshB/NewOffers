@@ -13,7 +13,7 @@ public class OfferItemHolder extends RecyclerView.ViewHolder {
     protected ImageView thumbnailImage;
     protected TextView titleText;
     protected TextView description;
-    protected TextView description2;
+    protected TextView offertime;
 
     public OfferItemHolder(View itemView) {
         super(itemView);
@@ -21,7 +21,7 @@ public class OfferItemHolder extends RecyclerView.ViewHolder {
         thumbnailImage = (ImageView) itemView.findViewById(R.id.thumbnail);
         titleText = (TextView) itemView.findViewById(R.id.title);
         description = (TextView) itemView.findViewById(R.id.description);
-        description2 = (TextView) itemView.findViewById(R.id.offertime);
+        offertime = (TextView) itemView.findViewById(R.id.offertime);
 
     }
 }

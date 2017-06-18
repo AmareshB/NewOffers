@@ -17,6 +17,7 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferItemHolder> {
 
     private ArrayList<Offer> offers;
     private Context mContext;
+    DateDifference dateDifference = new DateDifference();
 
     public OfferListAdapter(ArrayList<Offer> offers, Context mContext) {
         this.offers = offers;
@@ -37,10 +38,10 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferItemHolder> {
         Offer offer = offers.get(position);
 
         //Picasso.with(mContext).load(offer.getOffer_Image()).error(R.mipmap.fk).placeholder(R.mipmap.fk).into(holder.thumbnailImage);
-
+        String difference = dateDifference.dateDiff(offer.getOffer_Data_Time());
         holder.titleText.setText(offer.getOffer_Title());
         holder.description.setText(offer.getOffer_Description());
-        holder.description2.setText(offer.getOffer_Data_Time());
+        holder.offertime.setText(difference);
 //        holder.titleText.setText(offer.getOffer_Data_Time());
 //        holder.titleText.setText(offer.getOffer_Status());
 

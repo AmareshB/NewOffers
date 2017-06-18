@@ -31,7 +31,8 @@
             android:gravity="right"
             android:id="@+id/offertime"
             android:layout_weight="0.15"
-            android:text = "Just Now"/>
+            android:text = "Just Now"
+            android:textStyle="bold"/>
 
 
     </LinearLayout>
